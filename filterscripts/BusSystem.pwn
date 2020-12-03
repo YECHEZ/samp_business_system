@@ -671,6 +671,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 			if(GetPVarInt(playerid, "PlDeport") == 1)
 			{
+				busdlgcon[playerid]--;//контроль диалогов -1
 				ShowPlayerDialog(playerid, 8000, 0, "Информация.", "{ADFF2F}Вы не можете купить бизнес,\nпока дело о Вашей депортации на слушании !", "OK", "");
 				SetPVarInt(playerid, "DlgCont", 8000);
 				return 1;
@@ -679,6 +680,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 #if (FS11INS == 0)
 			if(GetPlayerMoney(playerid) < buscost[playIDbus[playerid]])//если у игрока недостаточно денег, то:
 			{
+				busdlgcon[playerid]--;//контроль диалогов -1
 				ShowPlayerDialog(playerid, 8000, 0, "Информация.", "{ADFF2F}У Вас недостаточно денег для покупки этого бизнеса !", "OK", "");
 				dlgcont[playerid] = 8000;
 				return 1;
@@ -687,6 +689,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 #if (FS11INS == 1)
 			if(GetPVarInt(playerid, "PlMon") < buscost[playIDbus[playerid]])//если у игрока недостаточно денег, то:
 			{
+				busdlgcon[playerid]--;//контроль диалогов -1
 				ShowPlayerDialog(playerid, 8000, 0, "Информация.", "{ADFF2F}У Вас недостаточно денег для покупки этого бизнеса !", "OK", "");
 				dlgcont[playerid] = 8000;
 				return 1;
@@ -701,6 +704,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				format(string, sizeof(string), "{ADFF2F}У вас уже есть %d бизнеса !   Что бы купить этот бизнес -\
 				\nпродайте хотя бы один из своих существующих бизнесов !", para1);
+				busdlgcon[playerid]--;//контроль диалогов -1
 				ShowPlayerDialog(playerid, 8000, 0, "Информация.", string, "OK", "");
 				dlgcont[playerid] = 8000;
 				return 1;
@@ -710,6 +714,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				SendClientMessage(playerid, 0xFF0000FF, " Этот бизнес уже принадлежит другому игроку !");
 				format(string, sizeof(string), "{ADFF2F}Название бизнеса: %s\nВладелец бизнеса: %s\nСтоимость бизнеса: %d $", busname[playIDbus[playerid]],
 				busplayname[playIDbus[playerid]], buscost[playIDbus[playerid]]);
+				busdlgcon[playerid]--;//контроль диалогов -1
 				ShowPlayerDialog(playerid, 8000, 0, "Информация.", string, "OK", "");
 				dlgcont[playerid] = 8000;
 				return 1;
